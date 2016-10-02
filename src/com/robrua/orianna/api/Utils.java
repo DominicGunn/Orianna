@@ -17,15 +17,11 @@ public abstract class Utils {
      */
     public static <T> List<List<T>> breakUpList(final List<T> IDs, final int limit) {
         final List<List<T>> result = new ArrayList<>(IDs.size() / limit + 1);
-        List<T> list = new ArrayList<>();
-        for(int i = 0; i < IDs.size(); i++) {
-            if(i % limit == 0 && i != 0) {
-                result.add(list);
-                list = new ArrayList<>();
-            }
-            list.add(IDs.get(i));
+
+        int originalListSize = IDs.size();
+        for (int i = 0; i < IDs.size(); i += limit) {
+            result.add(IDs.subList(i, Math.min(originalListSize, i + limit)));
         }
-        result.add(list);
 
         return result;
     }
